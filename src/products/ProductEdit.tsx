@@ -1,5 +1,6 @@
 import { AutoCompleteInput } from "@/components/AutoCompleteInput";
 import { Breadcrumb, BreadcrumbItem } from "@/components/Breadcrumb";
+import { useToast } from "@/components/hooks/use-toast";
 import { RaInput } from "@/components/RaInput";
 import { ReferenceInput } from "@/components/ReferenceInput";
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,7 @@ export const ProductEdit = () => (
 
 const ProductEditView = () => {
   const context = useEditContext();
+  const { toast } = useToast();
 
   if (context.isLoading || !context.record) {
     return null;
@@ -41,7 +43,16 @@ const ProductEditView = () => {
             <AutoCompleteInput label="Category" />
           </ReferenceInput>
           <div className="flex flex-row gap-4">
-            <Button className="btn btn-primary" type="submit">
+            <Button
+              className="btn btn-primary"
+              type="submit"
+              onClick={() => {
+                toast({
+                  title: "Edit",
+                  description: "Product edited successfully",
+                });
+              }}
+            >
               Save
             </Button>
           </div>
